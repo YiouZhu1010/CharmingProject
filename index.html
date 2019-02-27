@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title>Atlanta's Charming Neighborhood</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <link href='style.css' rel='stylesheet' />
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.css">
+    <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput-typeahead.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.2/mapbox-gl-geocoder.min.js'></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.1.1/typeahead.bundle.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.js"></script>
+
+</head>
+
+<body>
+    <div id='sidebar'>
+        <div id='sidebar-content'>
+            <p class="h5">The Atlanta Charm Map</p>
+            <hr>
+            <div id="first-section">
+                <p class='h6'>Charming Tweets since</p>
+                <span id='since-time'></span>
+                <div id="counter"><span class='count'>-</span><span class='count'>-</span><span class='count'>-</span><span
+                        class='count'>-</span><span class='count'>-</span><span class='count'>-</span></div>
+            </div>
+            <hr>
+            <div>
+                <p class='h6'>Time Range</p>
+            </div>
+            <hr>
+            <div id="filter-block">
+                <h6 class='subtitle'>Filter</h6>
+                <input type="text" id="filter">
+            </div>
+            <hr>
+            <div id="spatial-query">
+                <h6 class='subtitle'>Spatial Query</h6>
+                <p class='small-title'>Neighborhoods:</p>
+                <p class='small-title'>Neighborhood Planning Units:</p>
+            </div>
+            <hr>
+            <div>
+                <h6 class='subtitle'>Download</h6>
+                <div id="download"><i class="fas fa-2x fa-download"></i></div>
+            </div>
+            <hr>
+            <div>
+                <h6 class='subtitle'>Share</h6>
+                <div id="share">
+                    <i class="fab fa-2x fa-facebook-f"></i>&nbsp;&nbsp;
+                    <i class="fab fa-2x fa-twitter"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id='twitter-content'></div>
+    <div id='map'></div>
+    <script>
+        mapboxgl.accessToken =
+            'pk.eyJ1IjoidXRjcHJvamVjdCIsImEiOiJjam1pODF0ZjEwMjhwM3FxejluZDNoNTBzIn0.9DeHxS2v2z2_aFHd5UvSFw';
+        const map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/utcproject/cjs6a2bch2cgl1gpf9d1kl52v',
+            center: [-84.390367, 33.744799],
+            zoom: 12.9,
+            pitch: 60
+        });
+        map.addControl(new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken
+        }));
+
+
+        var geoJson = {
+            type: 'FeatureCollection',
+            features: [{
+                    type: 'Feature',
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-84.390367, 33.744799]
+                    },
+                    "properties": {
+                        'type': 'walk',
+                        'content': 'walk'
+                    }
+                },
+                {
+                    type: 'Feature',
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-84.398567, 33.754599]
+                    },
+                    "properties": {
+                        'type': 'aes',
+                        'content': 'aes'
+                    }
+                },
+                {
+                    type: 'Feature',
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-84.392767, 33.748699]
+                    },
+                    "properties": {
+                        'type': 'sde',
+                        'content': 'sde'
+                    }
+                }, {
+                    type: 'Feature',
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-84.394167, 33.743199]
+                    },
+                    "properties": {
+                        'type': 'crime',
+                        'content': 'crime'
+                    }
+                }, {
+                    type: 'Feature',
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [-84.400367, 33.741799]
+                    },
+                    "properties": {
+                        'type': 'traffic',
+                        'content': 'traffic'
+                    }
+                }
+            ]
+        };
+        // add markers to map
+        geoJson.features.forEach(function (marker) {
+
+            // create a HTML element for each feature
+            var el = document.createElement('div');
+            var name = marker['properties']['type']
+            el.className = name;
+
+
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .addTo(map);
+            el.addEventListener("click", function () {
+                // new mapboxgl.Popup({
+                //         closeOnClick: false
+                //     })
+                //     .setLngLat(marker.geometry.coordinates)
+                //     .setHTML(marker.properties.content)
+                //     .addTo(map)
+
+            })
+        });
+
+
+
+
+
+        var fromDateString = new Date();
+        fromDateString.setDate(fromDateString.getDate() - 4);
+        var fromDateArray = String(fromDateString).split(" ");
+        var fromYear = fromDateArray[3];
+        var fromMonth = formatMonth(fromDateArray[1]);
+        var fromDay = fromDateArray[2];
+        var fromTime = fromDateArray[4].split(":")[0] + ':' + fromDateArray[4].split(":")[1] + ':' + fromDateArray[4].split(
+            ":")[2];
+
+        var dt_from = fromYear + "-" + fromMonth + "-" + fromDay + " " + fromTime;
+        var title = fromMonth + "/" + fromDay + "/" + fromYear
+        document.getElementById("since-time").innerHTML = title
+
+
+        var filtertags = [{
+            "value": 1,
+            "text": "Crime"
+        }, {
+            "value": 2,
+            "text": "Aesthetics"
+        }, {
+            "value": 3,
+            "text": "Walkability"
+        }, {
+            "value": 4,
+            "text": "Traffic"
+        }, {
+            "value": 5,
+            "text": "Shopping & Entertainment"
+        }]
+        var cities = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: filtertags
+        });
+        cities.initialize();
+
+        var elt = $('#filter');
+        elt.tagsinput({
+            tagClass: function (item) {
+                switch (item.text) {
+                    case 'Crime':
+                        return 'label label-crime';
+                    case 'Aesthetics':
+                        return 'label label-aes';
+                    case 'Walkability':
+                        return 'label label-walk';
+                    case 'Traffic':
+                        return 'label label-traffic';
+                    case 'Shopping & Entertainment':
+                        return 'label label-sde';
+                }
+            },
+            itemValue: 'value',
+            itemText: 'text',
+            typeaheadjs: {
+                name: 'cities',
+                displayKey: 'text',
+                source: cities.ttAdapter()
+            }
+        });
+        elt.tagsinput('add', {
+            "value": 1,
+            "text": "Crime"
+        });
+        elt.tagsinput('add', {
+            "value": 2,
+            "text": "Aesthetics"
+        });
+        elt.tagsinput('add', {
+            "value": 3,
+            "text": "Walkability"
+        });
+        elt.tagsinput('add', {
+            "value": 4,
+            "text": "Traffic"
+        });
+        elt.tagsinput('add', {
+            "value": 5,
+            "text": "Shopping & Entertainment"
+        });
+
+        function formatMonth(val) {
+            var monthNumber;
+            switch (val) {
+                case "Jan":
+                    monthNumber = '01'
+                    break;
+                case "Feb":
+                    monthNumber = '02'
+                    break;
+                case "Mar":
+                    monthNumber = '03'
+                    break;
+                case "Apr":
+                    monthNumber = '04'
+                    break;
+                case "May":
+                    monthNumber = '05'
+                    break;
+                case "Jun":
+                    monthNumber = '06'
+                    break;
+                case "Jul":
+                    monthNumber = '07'
+                    break;
+                case "Aug":
+                    monthNumber = '08'
+                    break;
+                case "Sep":
+                    monthNumber = '09'
+                    break;
+                case "Oct":
+                    monthNumber = '10'
+                    break;
+                case "Nov":
+                    monthNumber = '11'
+                    break;
+                case "Dec":
+                    monthNumber = '12'
+                    break;
+            }
+            return monthNumber;
+        }
+
+        $(document).mouseup(function (e) {
+            var container = $("#twitter-content");
+
+            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                container.hide();
+            }
+        });
+    </script>
+</body>
+
+</html>

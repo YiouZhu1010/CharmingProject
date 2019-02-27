@@ -1,0 +1,177 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+
+.aes {
+    background-image: url('img/aes.png');
+    background-size: cover;
+    width: 35px;
+    height: 42px;
+    cursor: pointer;
+}
+
+.sde {
+    background-image: url('img/sde.png');
+    background-size: cover;
+    width: 35px;
+    height: 42px;
+    cursor: pointer;
+}
+
+.crime {
+    background-image: url('img/crime.png');
+    background-size: cover;
+    width: 35px;
+    height: 42px;
+    cursor: pointer;
+}
+
+.traffic {
+    background-image: url('img/traffic.png');
+    background-size: cover;
+    width: 35px;
+    height: 42px;
+    cursor: pointer;
+}
+
+.walk {
+    background-image: url('img/walk.png');
+    background-size: cover;
+    width: 35px;
+    height: 42px;
+    cursor: pointer;
+}
+
+#sidebar {
+    height: 95%;
+    width: 280px;
+    position: fixed;
+    z-index: 1;
+    top: 20px;
+    left: 10px;
+    opacity: 0.95;
+    background-color: rgb(234, 241, 249);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    overflow: auto;
+}
+
+#sidebar-content {
+    color: #183e7a;
+}
+
+#twitter-content {
+    height: 100px;
+    width: 240px;
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    opacity: 0.95;
+    z-index: 1;
+    background-color: rgb(234, 241, 249);
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.8);
+    border-radius: 5px;
+    overflow: auto;
+    color: #183e7a;
+}
+
+.h5 {
+    margin-top: 25px;
+    text-align: center;
+    color: #333333 !important;
+    text-shadow: 2px 2px 0px #FFFFFF, 5px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.subtitle {
+    text-align: center
+}
+
+.small-title {
+    margin-left: 10%;
+    font-size: 14px;
+}
+
+.bootstrap-tagsinput {
+    width: 90%;
+    margin-left: 5%
+}
+
+#download {
+    text-align: center
+}
+
+#share {
+    text-align: center
+}
+
+.label-crime {
+    padding: 2px;
+    padding-left: 4px;
+    background-color: #FC6060;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.label-aes {
+    padding: 2px;
+    padding-left: 4px;
+    background-color: #42b3f4;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.label-traffic {
+    padding: 2px;
+    padding-left: 4px;
+    background-color: #B683DE;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.label-sde {
+    padding: 2px;
+    padding-left: 4px;
+    background-color: #FFC226;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+.label-walk {
+    padding: 2px;
+    padding-left: 4px;
+    background-color: #24C32A;
+    border-radius: 2px;
+    font-size: 14px;
+}
+
+#first-section {
+    text-align: center
+}
+
+.h6 {
+    text-align: center
+}
+
+#counter .count {
+    margin-top: 5px;
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    line-height: 28px;
+    border-top: 1px solid #ECECEC;
+    border-left: 1px solid #ECECEC;
+    border-bottom: 1px solid #ECECEC;
+    background: #ffffff;
+    color: #9A9A9A;
+    font-family: "Trebuchet MS";
+}
